@@ -57,6 +57,16 @@ public class ModelService : IService<ModelDto>
 
 		try
 		{
+<<<<<<< Updated upstream
+=======
+			var currentUser = await userService.GetCurrentUser();
+
+			if (model.CreatedBy != currentUser.Id && currentUser.Role != "Admin" && model.CreatedBy != null)
+			{
+				throw new UnauthorizedAccessException("Non hai i permessi per modificare questo modello");
+			}
+
+>>>>>>> Stashed changes
 			await unitOfWork.Models.Update(model);
 			await unitOfWork.SaveAsync();
 			unitOfWork.CommitTransaction();
@@ -75,6 +85,17 @@ public class ModelService : IService<ModelDto>
 
 		try
 		{
+<<<<<<< Updated upstream
+=======
+			var model = await unitOfWork.Models.Find(id);
+			var currentUser = await userService.GetCurrentUser();
+
+			if (model?.CreatedBy != currentUser.Id && currentUser.Role != "Admin" && model?.CreatedBy != null)
+			{
+				return false;
+			}
+
+>>>>>>> Stashed changes
 			await unitOfWork.Models.Delete(id);
 			await unitOfWork.SaveAsync();
 			unitOfWork.CommitTransaction();

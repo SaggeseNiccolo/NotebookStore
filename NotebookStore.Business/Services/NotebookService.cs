@@ -99,6 +99,16 @@ public class NotebookService : IService<NotebookDto>
 
 		try
 		{
+<<<<<<< Updated upstream
+=======
+			var currentUser = await userService.GetCurrentUser();
+
+			if (notebook.CreatedBy != currentUser.Id && currentUser.Role != "Admin" && notebook.CreatedBy != null)
+			{
+				throw new UnauthorizedAccessException("Non sei autorizzato a modificare questo notebook");
+			}
+
+>>>>>>> Stashed changes
 			await unitOfWork.Notebooks.Update(notebook);
 			await unitOfWork.SaveAsync();
 			unitOfWork.CommitTransaction();
@@ -117,6 +127,17 @@ public class NotebookService : IService<NotebookDto>
 
 		try
 		{
+<<<<<<< Updated upstream
+=======
+			var notebook = await unitOfWork.Notebooks.Find(id);
+			var currentUser = await userService.GetCurrentUser();
+
+			if (notebook?.CreatedBy != currentUser.Id && currentUser.Role != "Admin" && notebook?.CreatedBy != null)
+			{
+				return false;
+			}
+
+>>>>>>> Stashed changes
 			await unitOfWork.Notebooks.Delete(id);
 			await unitOfWork.SaveAsync();
 			unitOfWork.CommitTransaction();

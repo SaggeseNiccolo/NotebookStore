@@ -57,6 +57,16 @@ public class DisplayService : IService<DisplayDto>
 
 		try
 		{
+<<<<<<< Updated upstream
+=======
+			var currentUser = await userService.GetCurrentUser();
+
+			if (display.CreatedBy != currentUser.Id && currentUser.Role != "Admin" && display.CreatedBy != null)
+			{
+				throw new UnauthorizedAccessException("Non sei autorizzato a modificare questo display");
+			}
+
+>>>>>>> Stashed changes
 			await unitOfWork.Displays.Update(display);
 			await unitOfWork.SaveAsync();
 			unitOfWork.CommitTransaction();
@@ -75,6 +85,17 @@ public class DisplayService : IService<DisplayDto>
 
 		try
 		{
+<<<<<<< Updated upstream
+=======
+			var display = await unitOfWork.Displays.Find(id);
+			var currentUser = await userService.GetCurrentUser();
+
+			if (display?.CreatedBy != currentUser.Id && currentUser.Role != "Admin" && display?.CreatedBy != null)
+			{
+				return false;
+			}
+
+>>>>>>> Stashed changes
 			await unitOfWork.Displays.Delete(id);
 			await unitOfWork.SaveAsync();
 			unitOfWork.CommitTransaction();

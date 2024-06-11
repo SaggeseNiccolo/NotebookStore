@@ -57,6 +57,16 @@ public class CpuService : IService<CpuDto>
 
 		try
 		{
+<<<<<<< Updated upstream
+=======
+			var currentUser = await userService.GetCurrentUser();
+
+			if (cpu.CreatedBy != currentUser.Id && currentUser.Role != "Admin" && cpu.CreatedBy != null)
+			{
+				throw new UnauthorizedAccessException("Non sei autorizzato a modificare questo processore");
+			}
+
+>>>>>>> Stashed changes
 			await unitOfWork.Cpus.Update(cpu);
 			await unitOfWork.SaveAsync();
 			unitOfWork.CommitTransaction();
@@ -75,6 +85,17 @@ public class CpuService : IService<CpuDto>
 
 		try
 		{
+<<<<<<< Updated upstream
+=======
+			var currentUser = await userService.GetCurrentUser();
+			var cpu = await unitOfWork.Cpus.Find(id);
+
+			if (cpu?.CreatedBy != currentUser.Id && currentUser.Role != "Admin" && cpu?.CreatedBy != null)
+			{
+				return false;
+			}
+
+>>>>>>> Stashed changes
 			await unitOfWork.Cpus.Delete(id);
 			await unitOfWork.SaveAsync();
 			unitOfWork.CommitTransaction();

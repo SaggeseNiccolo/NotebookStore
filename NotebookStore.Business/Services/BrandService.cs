@@ -57,6 +57,16 @@ public class BrandService : IService<BrandDto>
 
         try
         {
+<<<<<<< Updated upstream
+=======
+            var currentUser = await userService.GetCurrentUser();
+
+            if (brand.CreatedBy != currentUser.Id && currentUser.Role != "Admin" && brand.CreatedBy != null)
+            {
+                throw new UnauthorizedAccessException("Non sei autorizzato a modificare questo brand");
+            }
+
+>>>>>>> Stashed changes
             await unitOfWork.Brands.Update(brand);
             await unitOfWork.SaveAsync();
             unitOfWork.CommitTransaction();
@@ -75,6 +85,17 @@ public class BrandService : IService<BrandDto>
 
         try
         {
+<<<<<<< Updated upstream
+=======
+            var currentUser = await userService.GetCurrentUser();
+            var brand = await unitOfWork.Brands.Find(id);
+
+            if (brand?.CreatedBy != currentUser.Id && currentUser.Role != "Admin" && brand?.CreatedBy != null)
+            {
+                return false;
+            }
+
+>>>>>>> Stashed changes
             await unitOfWork.Brands.Delete(id);
             await unitOfWork.SaveAsync();
             unitOfWork.CommitTransaction();

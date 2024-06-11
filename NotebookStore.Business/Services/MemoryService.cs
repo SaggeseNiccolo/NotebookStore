@@ -57,6 +57,16 @@ public class MemoryService : IService<MemoryDto>
 
 		try
 		{
+<<<<<<< Updated upstream
+=======
+			var currentUser = await userService.GetCurrentUser();
+
+			if (memory.CreatedBy != currentUser.Id && currentUser.Role != "Admin" && memory.CreatedBy != null)
+			{
+				throw new UnauthorizedAccessException("Non sei autorizzato a modificare questa memoria");
+			}
+
+>>>>>>> Stashed changes
 			await unitOfWork.Memories.Update(memory);
 			await unitOfWork.SaveAsync();
 			unitOfWork.CommitTransaction();
@@ -75,6 +85,17 @@ public class MemoryService : IService<MemoryDto>
 
 		try
 		{
+<<<<<<< Updated upstream
+=======
+			var memory = await unitOfWork.Memories.Find(id);
+			var currentUser = await userService.GetCurrentUser();
+
+			if (memory?.CreatedBy != currentUser.Id && currentUser.Role != "Admin" && memory?.CreatedBy != null)
+			{
+				return false;
+			}
+
+>>>>>>> Stashed changes
 			await unitOfWork.Memories.Delete(id);
 			await unitOfWork.SaveAsync();
 			unitOfWork.CommitTransaction();
